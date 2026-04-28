@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0d2e0d">
+<title>May Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #F2A900;
+    --gold-light: #FFD166;
+    --gold-dark: #B87D00;
+    --green-deep: #0d2e0d;
+    --green-mid: #1a5c1a;
+    --green-bright: #2e8b2e;
+    --green-light: #C8E6C9;
+    --green-pale: #E8F5E9;
+    --text-on-dark: #F0F4F0;
+    --text-muted-dark: #9EC89E;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--green-deep);
+    color: var(--text-on-dark);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 10% 0%, #1a5c1a 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 100%, #1a3a1a 0%, transparent 50%),
+      var(--green-deep);
+  }
+
+  .app {
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 0 0 3rem;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 3rem 1.5rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .header-left {}
+
+  .header-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .header-title {
+    font-family: var(--font-display);
+    font-size: 52px;
+    line-height: 0.9;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .header-title span {
+    color: var(--gold);
+  }
+
+  .header-date {
+    font-size: 13px;
+    color: var(--text-muted-dark);
+    margin-top: 8px;
+  }
+
+  .shield-wrap {
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .shield-svg {
+    width: 64px;
+    height: 72px;
+    filter: drop-shadow(0 4px 12px rgba(242,169,0,0.3));
+  }
+
+  /* STREAK */
+  .streak-bar {
+    margin: 0 1.5rem 1.5rem;
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(242,169,0,0.3);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .streak-left {}
+
+  .streak-num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .streak-label {
+    font-size: 11px;
+    color: var(--text-muted-dark);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .streak-right {
+    text-align: right;
+  }
+
+  .streak-total {
+    font-family: var(--font-display);
+    font-size: 32px;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .streak-total-label {
+    font-size: 11px;
+    color: var(--text-muted-dark);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* QUOTE */
+  .quote-section {
+    margin: 0 1.5rem 1.5rem;
+    border-left: 3px solid var(--gold);
+    padding-left: 1rem;
+  }
+
+  .quote-text {
+    font-size: 14px;
+    color: var(--green-light);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .quote-author {
+    font-size: 11px;
+    color: var(--gold-dark);
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 0 1.5rem 1.5rem;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+  }
+
+  .stat-val {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 10px;
+    color: var(--text-muted-dark);
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted-dark);
+    margin: 0 1.5rem 0.75rem;
+  }
+
+  /* MOVE CARDS */
+  .moves {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 0 1.5rem 1rem;
+  }
+
+  .move-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1rem 0.5rem 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .move-card:active { transform: scale(0.96); }
+
+  .move-card.ticked {
+    background: rgba(242,169,0,0.15);
+    border-color: var(--gold);
+  }
+
+  .move-icon {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .move-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-on-dark);
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+
+  .move-card.ticked .move-name { color: var(--gold); }
+
+  .move-detail {
+    font-size: 10px;
+    color: var(--text-muted-dark);
+    line-height: 1.4;
+  }
+
+  .move-card.ticked .move-detail { color: var(--gold-dark); }
+
+  .move-check {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    margin: 8px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .move-card.ticked .move-check {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .check-tick {
+    width: 8px;
+    height: 8px;
+    display: none;
+  }
+
+  .move-card.ticked .check-tick { display: block; }
+
+  /* LOG BUTTON */
+  .log-btn {
+    display: block;
+    width: calc(100% - 3rem);
+    margin: 0 1.5rem 1.5rem;
+    padding: 1rem;
+    background: var(--gold);
+    color: var(--green-deep);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .log-btn:disabled {
+    background: rgba(255,255,255,0.08);
+    color: var(--text-muted-dark);
+    cursor: default;
+  }
+
+  .log-btn.done {
+    background: var(--green-mid);
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+  }
+
+  .log-btn:not(:disabled):active { transform: scale(0.98); }
+
+  /* CALENDAR */
+  .cal-section {
+    margin: 0 1.5rem;
+  }
+
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 6px;
+  }
+
+  .wd {
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-muted-dark);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 0;
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    cursor: default;
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .cal-day.blank {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .cal-day.today {
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    background: rgba(242,169,0,0.08);
+  }
+
+  .cal-day.completed {
+    background: var(--green-mid);
+    border-color: var(--green-bright);
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .cal-day.future {
+    opacity: 0.25;
+  }
+
+  /* RESET */
+  .reset-btn {
+    display: block;
+    margin: 2rem auto 0;
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: var(--font-body);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* CONFETTI FLASH */
+  @keyframes flash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .flash {
+    position: fixed;
+    inset: 0;
+    background: rgba(242,169,0,0.15);
+    pointer-events: none;
+    animation: flash 0.6s ease forwards;
+    z-index: 99;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-eyebrow">Daily grind</div>
+      <div class="header-title">MAY<br><span>2026</span></div>
+      <div class="header-date" id="hdate"></div>
+    </div>
+    <div class="shield-wrap">
+      <svg class="shield-svg" viewBox="0 0 64 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 3 L61 16 L61 38 C61 54 32 69 32 69 C32 69 3 54 3 38 L3 16 Z" fill="#F2A900"/>
+        <path d="M32 10 L54 21 L54 38 C54 51 32 63 32 63 C32 63 10 51 10 38 L10 21 Z" fill="#1a5c1a"/>
+        <path d="M32 18 L48 27 L48 38 C48 48 32 57 32 57 C32 57 16 48 16 38 L16 27 Z" fill="#F2A900"/>
+        <path d="M32 26 L42 32 L42 38 C42 44 32 50 32 50 C32 50 22 44 22 38 L22 32 Z" fill="#0d2e0d"/>
+        <text x="32" y="46" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="14" fill="#F2A900">AUS</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="streak-bar">
+    <div class="streak-left">
+      <div class="streak-num" id="streak-num">0</div>
+      <div class="streak-label">Day streak</div>
+    </div>
+    <div class="streak-right">
+      <div class="streak-total" id="days-done">0/31</div>
+      <div class="streak-total-label">Days done</div>
+    </div>
+  </div>
+
+  <div class="quote-section">
+    <div class="quote-text" id="quote-text"></div>
+    <div class="quote-author" id="quote-author"></div>
+  </div>
+
+  <div class="stats-row" style="margin-top:1.5rem;">
+    <div class="stat-card">
+      <div class="stat-val" id="s-pushups">0</div>
+      <div class="stat-lbl">Push-ups</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="s-plank">0m</div>
+      <div class="stat-lbl">Planked</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="s-lunges">0</div>
+      <div class="stat-lbl">Lunges</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:1.5rem;">Today's session</div>
+
+  <div class="moves">
+    <div class="move-card" id="m0" onclick="toggleMove(0)">
+      <span class="move-icon">&#9632;</span>
+      <div class="move-name">Plank</div>
+      <div class="move-detail">6 x 1 min<br>= 6 min</div>
+      <div class="move-check">
+        <svg class="check-tick" viewBox="0 0 8 8" fill="none">
+          <path d="M1 4L3 6L7 2" stroke="#0d2e0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="move-card" id="m1" onclick="toggleMove(1)">
+      <span class="move-icon">&#9650;</span>
+      <div class="move-name">Push-ups</div>
+      <div class="move-detail">5 x 20<br>= 100 reps</div>
+      <div class="move-check">
+        <svg class="check-tick" viewBox="0 0 8 8" fill="none">
+          <path d="M1 4L3 6L7 2" stroke="#0d2e0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="move-card" id="m2" onclick="toggleMove(2)">
+      <span class="move-icon">&#9670;</span>
+      <div class="move-name">Heel elevated lunges</div>
+      <div class="move-detail">2 x 20 each<br>= 40 reps</div>
+      <div class="move-check">
+        <svg class="check-tick" viewBox="0 0 8 8" fill="none">
+          <path d="M1 4L3 6L7 2" stroke="#0d2e0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <button class="log-btn" id="log-btn" onclick="logDay()" disabled>Tick all 3 to log</button>
+
+  <div class="section-label">May calendar</div>
+  <div class="cal-section">
+    <div class="weekdays">
+      <div class="wd">M</div><div class="wd">T</div><div class="wd">W</div>
+      <div class="wd">T</div><div class="wd">F</div><div class="wd">S</div><div class="wd">S</div>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">Reset all progress</button>
+</div>
+
+<script>
+const QUOTES = [
+  { text: "We all have the ability to do what we don't want to do. That's called being a professional.", author: "David Goggins" },
+  { text: "Discipline equals freedom.", author: "Jocko Willink" },
+  { text: "You are not the victim of the world, but rather the master of your own destiny.", author: "Marcus Aurelius" },
+  { text: "The man who moves a mountain begins by carrying away small stones.", author: "Confucius" },
+  { text: "Don't count the days. Make the days count.", author: "Muhammad Ali" },
+  { text: "The obstacle is the way.", author: "Marcus Aurelius" },
+  { text: "You have power over your mind, not outside events. Realise this, and you will find strength.", author: "Marcus Aurelius" },
+  { text: "Suffer the pain of discipline or suffer the pain of regret. The choice is yours.", author: "Jim Rohn" },
+  { text: "No one is going to come and save you. No one is coming to push you. This is yours.", author: "David Goggins" },
+  { text: "Do today what others won't, so tomorrow you can do what others can't.", author: "Jerry Rice" },
+  { text: "There is nothing outside of yourself that can ever enable you to get better, stronger, richer, quicker, or smarter. Everything is within.", author: "Miyamoto Musashi" },
+  { text: "The successful warrior is the average man with laser-like focus.", author: "Bruce Lee" },
+  { text: "Today I will do what others won't, so tomorrow I can accomplish what others can't.", author: "Jocko Willink" },
+  { text: "Waste no more time arguing about what a good man should be. Be one.", author: "Marcus Aurelius" },
+  { text: "Get comfortable being uncomfortable. That's how you grow.", author: "David Goggins" },
+  { text: "Luck is what happens when preparation meets opportunity.", author: "Seneca" },
+  { text: "You must do the thing you think you cannot do.", author: "Eleanor Roosevelt" },
+  { text: "There is no easy way. There is only hard work, late nights, and the willingness to fail.", author: "Jocko Willink" },
+  { text: "Do not pray for an easy life. Pray for the strength to endure a difficult one.", author: "Bruce Lee" },
+  { text: "Accept the challenges so that you can feel the exhilaration of victory.", author: "George S. Patton" },
+  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+  { text: "The mind is the most powerful weapon. If you can control your mind, you can do anything.", author: "David Goggins" },
+  { text: "Fall down seven times, get up eight.", author: "Japanese proverb" },
+  { text: "Strength is produced by struggle. You must do what others don't to achieve what others won't.", author: "Henry Rollins" },
+  { text: "We suffer more in imagination than in reality.", author: "Seneca" },
+  { text: "Stop waiting for the right moment. The moment is now.", author: "Jocko Willink" },
+  { text: "Do not go where the path may lead, go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson" },
+  { text: "If you always put limits on what you can do, physical or anything else, it'll spread over into the rest of your life.", author: "Bruce Lee" },
+  { text: "There is only one corner of the universe you can be certain of improving, and that's yourself.", author: "Aldous Huxley" },
+  { text: "You have to build calluses on your brain just like you build calluses on your hands.", author: "David Goggins" },
+  { text: "Today you earned it. Tomorrow you earn it again.", author: "Jocko Willink" }
+];
+
+const KEY = 'aussie_may_2026_standalone';
+let state = { done: [], moves: [false, false, false] };
+
+function load() {
+  try {
+    const r = localStorage.getItem(KEY);
+    if (r) state = JSON.parse(r);
+    if (!Array.isArray(state.moves)) state.moves = [false, false, false];
+    if (!Array.isArray(state.done)) state.done = [];
+  } catch(e) { state = { done: [], moves: [false, false, false] }; }
+}
+
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function resetAll() {
+  if (confirm('Reset all progress? This cannot be undone.')) {
+    state = { done: [], moves: [false, false, false] };
+    save(); render();
+  }
+}
+
+function toggleMove(i) {
+  const today = new Date().getDate();
+  if (state.done.includes(today)) return;
+  state.moves[i] = !state.moves[i];
+  save(); render();
+}
+
+function logDay() {
+  const today = new Date().getDate();
+  if (today < 1 || today > 31) return;
+  if (!state.moves.every(Boolean)) return;
+  if (!state.done.includes(today)) {
+    state.done.push(today);
+    state.moves = [false, false, false];
+    save(); render();
+    const flash = document.createElement('div');
+    flash.className = 'flash';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 700);
+  }
+}
+
+function getStreak() {
+  let streak = 0;
+  let d = new Date().getDate();
+  while (d >= 1 && state.done.includes(d)) { streak++; d--; }
+  return streak;
+}
+
+function render() {
+  const now = new Date();
+  const day = now.getDate();
+  const month = now.getMonth();
+
+  if (month !== 4) {
+    document.getElementById('hdate').textContent = 'Challenge runs in May 2026';
+  } else {
+    document.getElementById('hdate').textContent = now.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' });
+  }
+
+  const qIdx = Math.min(day - 1, QUOTES.length - 1);
+  const q = QUOTES[qIdx >= 0 ? qIdx : 0];
+  document.getElementById('quote-text').textContent = '\u201c' + q.text + '\u201d';
+  document.getElementById('quote-author').textContent = '\u2014 ' + q.author;
+
+  document.getElementById('streak-num').textContent = getStreak();
+  const cnt = state.done.length;
+  document.getElementById('days-done').textContent = cnt + '/31';
+  document.getElementById('s-pushups').textContent = (cnt * 100).toLocaleString();
+  document.getElementById('s-plank').textContent = (cnt * 6) + 'm';
+  document.getElementById('s-lunges').textContent = (cnt * 40).toLocaleString();
+
+  const todayDone = state.done.includes(day);
+  [0,1,2].forEach(i => {
+    const el = document.getElementById('m' + i);
+    if (todayDone || state.moves[i]) el.classList.add('ticked');
+    else el.classList.remove('ticked');
+  });
+
+  const btn = document.getElementById('log-btn');
+  if (todayDone) {
+    btn.textContent = 'Done for today. Bloody legend.';
+    btn.className = 'log-btn done';
+    btn.disabled = false;
+  } else if (state.moves.every(Boolean)) {
+    btn.textContent = 'Log today as done';
+    btn.className = 'log-btn';
+    btn.disabled = false;
+  } else {
+    btn.textContent = 'Tick all 3 to log';
+    btn.className = 'log-btn';
+    btn.disabled = true;
+  }
+
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  const firstDay = new Date(2026, 4, 1).getDay();
+  const offset = firstDay === 0 ? 6 : firstDay - 1;
+  for (let i = 0; i < offset; i++) {
+    const b = document.createElement('div');
+    b.className = 'cal-day blank';
+    grid.appendChild(b);
+  }
+  for (let d = 1; d <= 31; d++) {
+    const el = document.createElement('div');
+    let cls = 'cal-day';
+    if (state.done.includes(d)) cls += ' completed';
+    else if (d === day && month === 4) cls += ' today';
+    else if (d > day || month !== 4) cls += ' future';
+    el.className = cls;
+    el.textContent = d;
+    grid.appendChild(el);
+  }
+}
+
+load();
+render();
+</script>
+</body>
+</html>
