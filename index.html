@@ -455,7 +455,7 @@
     </div>
     <div class="stat-card">
       <div class="stat-val" id="s-lunges">0</div>
-      <div class="stat-lbl">Lunges</div>
+      <div class="stat-lbl">Squats</div>
     </div>
   </div>
 
@@ -465,7 +465,7 @@
     <div class="move-card" id="m0" onclick="toggleMove(0)">
       <span class="move-icon">&#9632;</span>
       <div class="move-name">Plank</div>
-      <div class="move-detail">6 x 1 min<br>= 6 min</div>
+      <div class="move-detail">6 minutes</div>
       <div class="move-check">
         <svg class="check-tick" viewBox="0 0 8 8" fill="none">
           <path d="M1 4L3 6L7 2" stroke="#0d2e0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -475,7 +475,7 @@
     <div class="move-card" id="m1" onclick="toggleMove(1)">
       <span class="move-icon">&#9650;</span>
       <div class="move-name">Push-ups</div>
-      <div class="move-detail">5 x 20<br>= 100 reps</div>
+      <div class="move-detail">100 reps</div>
       <div class="move-check">
         <svg class="check-tick" viewBox="0 0 8 8" fill="none">
           <path d="M1 4L3 6L7 2" stroke="#0d2e0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -484,8 +484,8 @@
     </div>
     <div class="move-card" id="m2" onclick="toggleMove(2)">
       <span class="move-icon">&#9670;</span>
-      <div class="move-name">Heel elevated lunges</div>
-      <div class="move-detail">2 x 20 each<br>= 40 reps</div>
+      <div class="move-name">Squats</div>
+      <div class="move-detail">100 reps</div>
       <div class="move-check">
         <svg class="check-tick" viewBox="0 0 8 8" fill="none">
           <path d="M1 4L3 6L7 2" stroke="#0d2e0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -616,7 +616,7 @@ function render() {
   document.getElementById('days-done').textContent = cnt + '/31';
   document.getElementById('s-pushups').textContent = (cnt * 100).toLocaleString();
   document.getElementById('s-plank').textContent = (cnt * 6) + 'm';
-  document.getElementById('s-lunges').textContent = (cnt * 40).toLocaleString();
+  document.getElementById('s-lunges').textContent = (cnt * 100).toLocaleString();
 
   const todayDone = state.done.includes(day);
   [0,1,2].forEach(i => {
